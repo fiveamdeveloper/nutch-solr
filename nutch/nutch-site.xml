@@ -29,7 +29,6 @@
  </description>
 </property>
 
-
 <property>
     <name>db.url.filters</name>
     <value>true</value>

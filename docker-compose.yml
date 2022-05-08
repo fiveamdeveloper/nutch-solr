@@ -4,8 +4,13 @@ services:
     image: "solr:7.3.1"
     ports:
      - "8983:8983"
-    # volumes:
-      # - data:/opt/solr/server/solr/mycores
+    # adds jetty libraries and settings for CORS allow-origin *
+    volumes:
+        - ./solr/lib/jetty-servlets-8.1.14.v20131031.jar:/opt/solr/server/solr-webapp/webapp/WEB-INF/lib/jetty-servlets-8.1.14.v20131031.jar
+        - ./solr/lib/jetty-util-8.1.14.v20131031.jar:/opt/solr/server/solr-webapp/webapp/WEB-INF/lib/jetty-util-8.1.14.v20131031.jar
+        - ./solr/lib/web.xml:/opt/solr/server/solr-webapp/webapp/WEB-INF/web.xml
+    #volumes:
+    # - data:/opt/solr/server/solr/mycores
     entrypoint:
       - docker-entrypoint.sh
       - solr-precreate
@@ -23,5 +28,7 @@ services:
         - ./nutch/nutch-site.xml:/root/nutch/conf/nutch-site.xml
         - ./nutch/regex-urlfilter.txt:/root/nutch/conf/regex-urlfilter.txt
         - ./nutch/seed.txt:/root/nutch/urls/seed.txt
-# volumes:
+    # volumes:
 #   data:
+  #services:
+  #  command: 'command'
