@@ -16,6 +16,10 @@
 
 # accept http://nutch.apache.org - deactivated!
 # +^https?://([a-z0-9-]+\.)*nutch\.apache\.org/
++^https?://([a-z0-9-]+\.)*consilio-gmbh\.de/
++^https?://([a-z0-9-]+\.)*wiewald\.com/
++^https?://([a-z0-9-]+\.)*tagesschau\.de/
++^https?://([a-z0-9-]+\.)*handelsblatt\.com/archiv/?p3594638=*([0-9-]+\.)
 +.
 
 # deny anything else

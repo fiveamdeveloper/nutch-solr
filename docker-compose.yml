@@ -28,7 +28,6 @@ services:
         - ./nutch/nutch-site.xml:/root/nutch/conf/nutch-site.xml
         - ./nutch/regex-urlfilter.txt:/root/nutch/conf/regex-urlfilter.txt
         - ./nutch/seed.txt:/root/nutch/urls/seed.txt
-    # volumes:
-#   data:
-  #services:
-  #  command: 'command'
+   #volumes:
+   # data:
+
