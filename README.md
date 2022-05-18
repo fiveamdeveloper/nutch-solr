@@ -11,5 +11,11 @@ To start the docker landscape you simply have to type `docker compose up` in you
 You can open Solr admin panel after the containers have been started from `http://localhost:8983/solr/#/`. By default `mycore` is the default Solr dataset.
 
 ## Query search results within Solr admin panel
-Open Solr admin panel in your browser.
+Open Solr admin panel in your browser and choose mycore.
 ![Choose mycore in Solr](choose-mycore.png)
+
+In the menu select `query` and enter your desired query. For example: `title:SAP` or `content:Hasso-Plattner`. A query is only possible if Apache Nutch already crawled websites and supplied them to Solr.
+![Perform a query](perform-query-1.png)
+
+After executing the query in Solr a result in a JSON is displayed in the preview.
+![Performed query with a response](perform-query-2.png)
