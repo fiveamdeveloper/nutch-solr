@@ -15,12 +15,10 @@
 -(?i)\.(gif|jpg|png|ico|css|sit|eps|wmf|zip|ppt|mpg|xls|gz|rpm|tgz|mov|exe|jpeg|bmp|svg|js)$
 
 # accept http://nutch.apache.org - deactivated!
-# +^https?://([a-z0-9-]+\.)*nutch\.apache\.org/
-+^https?://([a-z0-9-]+\.)*consilio-gmbh\.de/
-+^https?://([a-z0-9-]+\.)*wiewald\.com/
-+^https?://([a-z0-9-]+\.)*tagesschau\.de/
-+^https?://([a-z0-9-]+\.)*handelsblatt\.com/archiv/?p3594638=*([0-9-]+\.)
-+.
+# +^https?://([a-z0-9-]+\.)*nutch\.apache\.org/ #example URL
+# +^ allows all urls after this scheme
++^https?://([a-z0-9-]+\.)*handelsblatt\.com/*
 
-# deny anything else
-#-.
+
+# deny anything else - crawls only websites from handelsblatt.com
+-.

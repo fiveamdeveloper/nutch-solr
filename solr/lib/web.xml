@@ -22,6 +22,7 @@
          metadata-complete="true"
 >
 
+<!-- Important to prevents CORS error during fetch. -->
 <filter>
   <filter-name>cross-origin</filter-name>
   <filter-class>org.eclipse.jetty.servlets.CrossOriginFilter</filter-class>

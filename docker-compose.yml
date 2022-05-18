@@ -3,14 +3,22 @@ services:
   solr:
     image: "solr:7.3.1"
     ports:
-     - "8983:8983"
+      - "8983:8983"
     # adds jetty libraries and settings for CORS allow-origin *
     volumes:
-        - ./solr/lib/jetty-servlets-8.1.14.v20131031.jar:/opt/solr/server/solr-webapp/webapp/WEB-INF/lib/jetty-servlets-8.1.14.v20131031.jar
-        - ./solr/lib/jetty-util-8.1.14.v20131031.jar:/opt/solr/server/solr-webapp/webapp/WEB-INF/lib/jetty-util-8.1.14.v20131031.jar
-        - ./solr/lib/web.xml:/opt/solr/server/solr-webapp/webapp/WEB-INF/web.xml
-    #volumes:
-    # - data:/opt/solr/server/solr/mycores
+      # Solr jetty libs
+      - ./solr/lib/jetty-servlets-8.1.14.v20131031.jar:/opt/solr/server/solr-webapp/webapp/WEB-INF/lib/jetty-servlets-8.1.14.v20131031.jar
+      - ./solr/lib/jetty-util-8.1.14.v20131031.jar:/opt/solr/server/solr-webapp/webapp/WEB-INF/lib/jetty-util-8.1.14.v20131031.jar
+      - ./solr/lib/web.xml:/opt/solr/server/solr-webapp/webapp/WEB-INF/web.xml
+      # Solr/carrot2 clustering config _default - not working
+      # - ./solr/lib/solrconfig.xml:/opt/solr/server/solr/configsets/_default/conf/solrconfig.xml
+      # Solr/carrot2 clustering config _mycore - not working
+      #- ./solr/lib/solrconfig.xml:/opt/solr/server/solr/mycores/mycore/conf/solrconfig.xml
+      # adds carrot2 clustering algorithms to Solr - additional configuration is needed!
+      - ./solr/lib/carrot2/kmeans-attributes.xml:/opt/solr/server/solr/configsets/_default/conf/clustering/carrot2/kmeans-attributes.xml
+      - ./solr/lib/carrot2/lingo-attributes.xml:/opt/solr/server/solr/configsets/_default/conf/clustering/carrot2/lingo-attributes.xml
+      - ./solr/lib/carrot2/stc-attributes.xml:/opt/solr/server/solr/configsets/_default/conf/clustering/carrot2/stc-attributes.xml
+    #command: 'opt/solr start -e mycore -D solr.clustering.enabled=true' #- clustering must be enabled; not working
     entrypoint:
       - docker-entrypoint.sh
       - solr-precreate
@@ -19,15 +27,12 @@ services:
     image: "apache/nutch:release-1.15"
     links:
       - solr
-    environment: 
+    environment:
       - JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
     working_dir: /root/nutch
     command: '/root/nutch/bin/crawl -i -D solr.server.url=http://solr:8983/solr/mycore -s urls crawl 10'
     volumes:
-        - ./nutch/index-writers.xml:/root/nutch/conf/index-writers.xml
-        - ./nutch/nutch-site.xml:/root/nutch/conf/nutch-site.xml
-        - ./nutch/regex-urlfilter.txt:/root/nutch/conf/regex-urlfilter.txt
-        - ./nutch/seed.txt:/root/nutch/urls/seed.txt
-   #volumes:
-   # data:
-
+      - ./nutch/index-writers.xml:/root/nutch/conf/index-writers.xml
+      - ./nutch/nutch-site.xml:/root/nutch/conf/nutch-site.xml
+      - ./nutch/regex-urlfilter.txt:/root/nutch/conf/regex-urlfilter.txt
+      - ./nutch/seed.txt:/root/nutch/urls/seed.txt
