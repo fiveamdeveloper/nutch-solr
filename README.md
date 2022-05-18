@@ -19,3 +19,6 @@ In the menu select `query` and enter your desired query. For example: `title:SAP
 
 After executing the query in Solr a result in a JSON is displayed in the preview.
 ![Performed query with a response](perform-query-2.png)
+
+## Querying with React Searchr search engine
+To query inside Solr you have to start the docker containers first. Afterwards you have start the react app. See the repo [Searchr React App](https://github.com/fiveamdeveloper/Searchr)
